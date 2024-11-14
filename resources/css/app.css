@@ -37,6 +37,18 @@ h6 {
     @apply text-base;
 }
 
+input {
+    @apply bg-gray-800 border border-gray-700 focus:border-gray-900 rounded-lg p-2;
+}
+
+textarea {
+    @apply bg-gray-800 border border-gray-700 focus:border-gray-900 rounded-lg p-2;
+}
+
+button {
+    @apply bg-gray-800 border border-gray-700 focus:border-gray-900 rounded-lg py-3 px-4;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

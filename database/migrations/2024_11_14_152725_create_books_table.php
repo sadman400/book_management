@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->year('publication_year');
+            $table->string('publication_year')->nullable();
             $table->string('image')->nullable();
 
             $table->foreignId('author_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();

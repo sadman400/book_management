@@ -1,6 +1,6 @@
 <x-layout>
 
-    <div class="mb-6">
+    <div class="mb-10">
         <a href="{{ route('books.index') }}" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300">Back</a>
     </div>
 

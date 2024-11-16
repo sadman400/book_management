@@ -19,13 +19,29 @@
                     <p><strong>Category:</strong> {{ $book->category->name }}</p>
                 </div>
 
-                <div class="mt-4 px-6 pb-6">
+                <div class="mt-4 px-6 pb-3">
                     <a href="{{ route('books.show', $book->id) }}" class="w-full inline-block py-2 px-4 text-center bg-teal-600 text-white font-bold rounded-lg hover:bg-teal-500 transition duration-200">
                         View Details
                     </a>
+                </div>
+                <div class="flex justify-between items-center gap-2 px-6 pb-3">
+                    <form action="{{route('books.edit', $book->id)}}" method="get" class="mt-0">
+                        @csrf
+                        <button type="submit" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                            Edit
+                        </button>
+                    </form>
+                    <form action="{{ route('books.destroy', $book->id) }}" method="POST" class="mt-0">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                            Delete
+                        </button>
+                    </form>
                 </div>
             </div>
         @endforeach
     </div>
 
 </x-layout>
+

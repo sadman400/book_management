@@ -1,5 +1,9 @@
 <x-layout>
 
+    <div class="mb-6">
+        <a href="{{ route('books.index') }}" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300">Back</a>
+    </div>
+
     <h1 class="text-4xl text-center mb-6">Update Category</h1>
 
     <div class="max-w-md mx-auto p-6 rounded-lg border border-gray-700 bg-gray-900 shadow-lg">

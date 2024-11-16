@@ -67,7 +67,9 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $book = Book::where('id', $id)->firstOrFail();
+
+        return view('books.show', ['book' => $book]);
     }
 
     /**
@@ -75,7 +77,10 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $book = Book::where('id', $id)->first();
+        $authors = Author::latest()->get();
+        $categories = Category::latest()->get();
+        return view('books.edit', ['book' => $book, 'authors' => $authors, 'categories' => $categories]);
     }
 
     /**
@@ -83,7 +88,36 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'max:255'],
+            'description' => ['max:500'],
+            'publication_year' => ['max:100'],
+            'author_id' => ['exists:authors,id'],
+            'category_id' => ['exists:categories,id'],
+            'image' => ['file', 'mimes:jpeg,png,jpg,gif,svg', 'max:10000'],
+        ]);
+
+        $book = Book::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            if ($book->image && Storage::disk('public')->exists($book->image)) {
+                Storage::disk('public')->delete($book->image);
+            }
+
+            $path = Storage::disk('public')->put('books_images', $request->image);
+            $book->image = $path;
+        }
+
+        $book->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'publication_year' => $request->publication_year,
+            'author_id' => $request->author_id,
+            'category_id' => $request->category_id,
+            'image' => $book->image
+        ]);
+
+        return redirect()->route('books.index');
     }
 
     /**
@@ -91,6 +125,7 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Book::destroy($id);
+        return redirect()->route('books.index');
     }
 }
